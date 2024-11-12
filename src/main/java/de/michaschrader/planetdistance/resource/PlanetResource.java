@@ -1,4 +1,4 @@
-package de.michaschrader.planetdistance;
+package de.michaschrader.planetdistance.resource;
 
 import de.michaschrader.planetdistance.model.Planet;
 import de.michaschrader.planetdistance.service.PlanetService;
