@@ -1,3 +1,23 @@
-<div *ngFor="let planet of planets">
-<div>{{planet.name}}</div>
+<!-- src/app/app.component.html -->
+<div class="container">
+  <div class="main-content">
+    <label>The distance between 
+      <select [(ngModel)]="selectedPlanet1" (change)="calculateDistance()">
+        <option *ngFor="let planet of planets" [value]="planet">{{ planet.name }}</option>
+      </select> and 
+      <select [(ngModel)]="selectedPlanet2" (change)="calculateDistance()">
+        <option *ngFor="let planet of planets" [value]="planet">{{ planet.name }}</option>
+      </select> on 
+      <input type="date" [(ngModel)]="selectedDate" (change)="calculateDistance()" />
+      is: 
+      <input type="text" [value]="distance" readonly />
+    </label>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <p>Website created by Micha Schrader. View the code on 
+      <a href="https://github.com/MichaSchrader/planetdistance" target="_blank" rel="noopener noreferrer">GitHub</a>.
+    </p>
+  </footer>
 </div>

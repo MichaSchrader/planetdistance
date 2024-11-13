@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/app/app.component.css */
+
+/* Container styling for a full-page layout with footer at the bottom */
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Keeps footer at the bottom */
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  /* Center the main content */
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  /* Style the dropdowns and inputs */
+  select, input[type="date"], input[type="text"] {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    margin: 0 5px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  select:focus, input[type="date"]:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: #555;
+  }
+  
+  label {
+    font-size: 1.2em;
+  }
+  
+  /* Footer styling */
+  .footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #888;
+    padding: 10px 0;
+    width: 100%; /* Ensures footer spans full width */
+  }
+  
+  .footer a {
+    color: #66b2ff; /* Lighter blue color for the link */
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
