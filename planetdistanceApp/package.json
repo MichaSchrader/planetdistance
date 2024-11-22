@@ -26,6 +26,10 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
+  "engines": {
+    "node": "22.11.0",
+    "npm": "10.9.0"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.11",
     "@angular/cli": "^18.2.11",
@@ -40,7 +44,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.5.2",
-    "heroku-postbuild": "ng build --prod",
-    "engines": { "node": "22.11.0", "npm": "10.9.0" }
+    "heroku-postbuild": "ng build --prod"
   }
 }
