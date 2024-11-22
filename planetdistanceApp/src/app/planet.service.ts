@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { Planet } from "./planet";
 import { environment } from "../environments/environment.development";
 
@@ -11,19 +11,12 @@ export class PlanetService {
     constructor(private http: HttpClient) { }
 
     public getPlanets(): Observable<Planet[]> {
-        return this.http.get<Planet[]>(`${this.apiServerUrl}/planet/all`);
-    }
-
-    public addPlanet(planet: Planet): Observable<Planet> {
-        return this.http.post<Planet>(`${this.apiServerUrl}/planet/add`, planet);
-    }
-
-    public updatePlanet(planet: Planet): Observable<Planet> {
-        return this.http.put<Planet>(`${this.apiServerUrl}/planet/update`, planet);
-    }
-
-    
-    public deletePlanet(planetId: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiServerUrl}/planet/delete${planetId}`);
+        const planetNames: Observable<string[]> = this.http.get<string[]>(`${this.apiServerUrl}/planet/all`);
+        const planets: Observable<Planet[]> = planetNames.pipe(
+            map((stringArray: string[]) => 
+              stringArray.map((planetName: string) => ({ id: 0, name: planetName, imageUrl: "" }))
+            )
+          );
+        return planets
     }
 }
