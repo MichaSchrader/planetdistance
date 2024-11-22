@@ -3,10 +3,10 @@
   <div class="main-content">
     <label>The distance between 
       <select [(ngModel)]="selectedPlanet1" (change)="calculateDistance()">
-        <option *ngFor="let planet of planets" [value]="planet">{{ planet.name }}</option>
+        <option *ngFor="let planet of planets" [ngValue]="planet">{{ planet.name }}</option>
       </select> and 
       <select [(ngModel)]="selectedPlanet2" (change)="calculateDistance()">
-        <option *ngFor="let planet of planets" [value]="planet">{{ planet.name }}</option>
+        <option *ngFor="let planet of planets" [ngValue]="planet">{{ planet.name }}</option>
       </select> on 
       <input type="date" [(ngModel)]="selectedDate" (change)="calculateDistance()" />
       is: 

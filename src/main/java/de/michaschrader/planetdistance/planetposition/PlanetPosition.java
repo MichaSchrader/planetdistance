@@ -1,5 +1,7 @@
 package de.michaschrader.planetdistance.planetposition;
 
+import java.util.Date;
+
 import static de.michaschrader.planetdistance.planetposition.Earth.*;
 import static de.michaschrader.planetdistance.planetposition.Jupiter.*;
 import static de.michaschrader.planetdistance.planetposition.Mars.*;
@@ -25,17 +27,19 @@ public class PlanetPosition {
         }
     }
 
-    long calculateDistance(String firstPlanet, String secondPlanet, long julianDay)
+    public static long calculateDistance(String firstPlanet, String secondPlanet, Date date)
     {
-        double time = (julianDay - 2451545.0) / 365250; // time in Julian millennia reckoned from J2000 (2000-Jan-01-Sat 12:00:00 TT)
-        Position firstPosition = positionOfPlanet(firstPlanet, time);
-        Position secondPosition = positionOfPlanet(secondPlanet, time);
+        long millisSinceEpoch = date.getTime(); // time in milliseconds since 01 Jan 1970 (UNIX time)
+        double julianDate = millisSinceEpoch / 86400000.0 + 2440587.5; // time in Standard Julian Date
+        double timeInJulianMillennia = (julianDate - 2451545.0) / 365250; // time in Julian millennia reckoned from J2000 (2000-Jan-01-Sat 12:00:00 TT)
+        Position firstPosition = positionOfPlanet(firstPlanet, timeInJulianMillennia);
+        Position secondPosition = positionOfPlanet(secondPlanet, timeInJulianMillennia);
         assert firstPosition != null && secondPosition !=null;
 
         return Math.round(firstPosition.distanceTo(secondPosition) * 149597870.691); // in kilometer
     }
 
-    private Position positionOfPlanet(String planet, double time) {
+    private static Position positionOfPlanet(String planet, double time) {
         return switch (planet) {
             case "Sun" -> positionOfSun(time);
             case "Mercury" -> positionOfMercury(time);
@@ -50,12 +54,12 @@ public class PlanetPosition {
         };
     }
 
-    private Position positionOfSun(double ignoredT)
+    private static Position positionOfSun(double ignoredT)
     {
         return new Position(0, 0, 0);
     }
 
-    private Position positionOfMercury(double t)
+    private static Position positionOfMercury(double t)
     {
         double x = Mercury_A_X0(t) + Mercury_A_X1(t) + Mercury_A_X2(t) + Mercury_A_X3(t) + Mercury_A_X4(t) + Mercury_A_X5(t);
         double y = Mercury_A_Y0(t) + Mercury_A_Y1(t) + Mercury_A_Y2(t) + Mercury_A_Y3(t) + Mercury_A_Y4(t) + Mercury_A_Y5(t);
@@ -63,7 +67,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfVenus(double t)
+    private static Position positionOfVenus(double t)
     {
         double x = Venus_A_X0(t) + Venus_A_X1(t) + Venus_A_X2(t) + Venus_A_X3(t) + Venus_A_X4(t) + Venus_A_X5(t);
         double y = Venus_A_Y0(t) + Venus_A_Y1(t) + Venus_A_Y2(t) + Venus_A_Y3(t) + Venus_A_Y4(t) + Venus_A_Y5(t);
@@ -71,7 +75,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfEarth(double t)
+    private static Position positionOfEarth(double t)
     {
         double x = Earth_A_X0(t) + Earth_A_X1(t) + Earth_A_X2(t) + Earth_A_X3(t) + Earth_A_X4(t) + Earth_A_X5(t);
         double y = Earth_A_Y0(t) + Earth_A_Y1(t) + Earth_A_Y2(t) + Earth_A_Y3(t) + Earth_A_Y4(t) + Earth_A_Y5(t);
@@ -79,7 +83,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfMars(double t)
+    private static Position positionOfMars(double t)
     {
         double x = Mars_A_X0(t) + Mars_A_X1(t) + Mars_A_X2(t) + Mars_A_X3(t) + Mars_A_X4(t) + Mars_A_X5(t);
         double y = Mars_A_Y0(t) + Mars_A_Y1(t) + Mars_A_Y2(t) + Mars_A_Y3(t) + Mars_A_Y4(t) + Mars_A_Y5(t);
@@ -87,7 +91,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfJupiter(double t)
+    private static Position positionOfJupiter(double t)
     {
         double x = Jupiter_A_X0(t) + Jupiter_A_X1(t) + Jupiter_A_X2(t) + Jupiter_A_X3(t) + Jupiter_A_X4(t) + Jupiter_A_X5(t);
         double y = Jupiter_A_Y0(t) + Jupiter_A_Y1(t) + Jupiter_A_Y2(t) + Jupiter_A_Y3(t) + Jupiter_A_Y4(t) + Jupiter_A_Y5(t);
@@ -95,7 +99,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfSaturn(double t)
+    private static Position positionOfSaturn(double t)
     {
         double x = Saturn_A_X0(t) + Saturn_A_X1(t) + Saturn_A_X2(t) + Saturn_A_X3(t) + Saturn_A_X4(t) + Saturn_A_X5(t);
         double y = Saturn_A_Y0(t) + Saturn_A_Y1(t) + Saturn_A_Y2(t) + Saturn_A_Y3(t) + Saturn_A_Y4(t) + Saturn_A_Y5(t);
@@ -103,7 +107,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfUranus(double t)
+    private static Position positionOfUranus(double t)
     {
         double x = Uranus_A_X0(t) + Uranus_A_X1(t) + Uranus_A_X2(t) + Uranus_A_X3(t) + Uranus_A_X4(t) + Uranus_A_X5(t);
         double y = Uranus_A_Y0(t) + Uranus_A_Y1(t) + Uranus_A_Y2(t) + Uranus_A_Y3(t) + Uranus_A_Y4(t) + Uranus_A_Y5(t);
@@ -111,7 +115,7 @@ public class PlanetPosition {
         return new Position(x, y, z);  // rectangular Heliocentric coordinates in AU
     }
 
-    private Position positionOfNeptune(double t)
+    private static Position positionOfNeptune(double t)
     {
         double x = Neptune_A_X0(t) + Neptune_A_X1(t) + Neptune_A_X2(t) + Neptune_A_X3(t) + Neptune_A_X4(t) + Neptune_A_X5(t);
         double y = Neptune_A_Y0(t) + Neptune_A_Y1(t) + Neptune_A_Y2(t) + Neptune_A_Y3(t) + Neptune_A_Y4(t) + Neptune_A_Y5(t);

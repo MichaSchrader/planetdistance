@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule directly
 import { RouterOutlet } from '@angular/router';
 import { Planet } from './planet';
 import { PlanetService } from './planet.service';
+import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit{
   selectedDate: string = '';
   distance: string = '';
   
-  constructor(private planetService: PlanetService){}
+  constructor(private planetService: PlanetService, private http: HttpClient){}
 
   
   ngOnInit(): void {
@@ -46,8 +47,8 @@ export class AppComponent implements OnInit{
     this.planetService.getPlanets().subscribe(
       (response: Planet[]) => {
         this.planets = response;
-        this.selectedPlanet1 = this.planets[0];
-        this.selectedPlanet2 = this.planets[this.planets.length];
+        //this.selectedPlanet1 = this.planets[0];
+        //this.selectedPlanet2 = this.planets[1];
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -56,12 +57,24 @@ export class AppComponent implements OnInit{
   }
   
   calculateDistance() {
-    // Placeholder for actual distance calculation
     if (this.selectedDate && this.selectedPlanet1 && this.selectedPlanet2) {
-      const randomDistance = (Math.random() * 1000).toFixed(2);
-      this.distance = `${randomDistance} million km`;
+      const time = new Date(this.selectedDate).toISOString()
+      const firstPlanetName = this.selectedPlanet1.name
+      const secondPlanetName = this.selectedPlanet2.name
+      const apiUrl = `http://localhost:8080/planet/distance/${firstPlanetName}/${secondPlanetName}/${time}`;
+      
+      // Call the backend API
+      this.http.get<number>(apiUrl).subscribe({
+        next: (response) => {
+          this.distance = `${response} km`;
+        },
+        error: (err) => {
+          console.error(err);
+          this.distance = 'Error calculating distance. Please try again.';
+        }
+      });
     } else {
-      this.distance = 'Please select both planets and enter a date.';
+      this.distance = 'Please select both planets and enter a valid date.';
     }
   }
 }
