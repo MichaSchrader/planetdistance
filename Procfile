@@ -1,1 +1,1 @@
-web: java -jar target/planetdistance-0.0.1-SNAPSHOT.jar --server.port=$PORT
+web: node server.js

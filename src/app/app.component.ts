@@ -7,6 +7,7 @@ import { PlanetService } from './planet.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -61,7 +62,7 @@ export class AppComponent implements OnInit{
       const time = new Date(this.selectedDate).toISOString()
       const firstPlanetName = this.selectedPlanet1.name
       const secondPlanetName = this.selectedPlanet2.name
-      const apiUrl = `http://localhost:8080/planet/distance/${firstPlanetName}/${secondPlanetName}/${time}`;
+      const apiUrl = environment.apiBaseUrl + `/planet/distance/${firstPlanetName}/${secondPlanetName}/${time}`;
       
       // Call the backend API
       this.http.get<number>(apiUrl).subscribe({
