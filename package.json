@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
-    "start": "ng serve",
+    "start": "node server.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:planetdistanceApp": "node dist/planetdistance-app/server/server.mjs",
