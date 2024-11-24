@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiBaseUrl: 'http://localhost:4000'
+    apiBaseUrl: 'https://planetdistance-api-add9401d1dea.herokuapp.com'
 };
