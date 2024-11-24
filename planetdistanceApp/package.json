@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:planetdistanceApp": "node dist/planetdistance-app/server/server.mjs"
+    "serve:ssr:planetdistanceApp": "node dist/planetdistance-app/server/server.mjs",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
