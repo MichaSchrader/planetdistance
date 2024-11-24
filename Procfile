@@ -1,1 +1,1 @@
-web: trap '' SIGTERM; node server.js & java -jar target/planetdistance-0.0.1-SNAPSHOT.jar & wait -n; kill -SIGTERM -$$; wait
+web: java -jar target/planetdistance-0.0.1-SNAPSHOT.jar
