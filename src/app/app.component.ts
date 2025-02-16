@@ -21,19 +21,6 @@ export class AppComponent implements OnInit{
   public planets!: Planet[];
   selectedPlanet1!: Planet;
   selectedPlanet2!: Planet;
-  // List of planets in our solar system
-  /*planets: string[] = [
-    'Mercury',
-    'Venus',
-    'Earth',
-    'Mars',
-    'Jupiter',
-    'Saturn',
-    'Uranus',
-    'Neptune'
-  ];*/
-  //selectedPlanet1: string = 'Earth';
-  //selectedPlanet2: string = 'Mars';
   selectedDate: string = '';
   distance: string = '';
   
@@ -48,8 +35,6 @@ export class AppComponent implements OnInit{
     this.planetService.getPlanets().subscribe(
       (response: Planet[]) => {
         this.planets = response;
-        //this.selectedPlanet1 = this.planets[0];
-        //this.selectedPlanet2 = this.planets[1];
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
